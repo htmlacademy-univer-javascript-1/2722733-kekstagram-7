@@ -20,3 +20,14 @@ const descriptions = [
   'Загадочный лес'
 ];
 
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+const getRandomItem = (array) => array[getRandomInt(0, array.length - 1)];
+
+const createComment = (id) => ({
+  id: id,
+  avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
+  message: getRandomItem(messages),
+  name: getRandomItem(names)
+});
+
