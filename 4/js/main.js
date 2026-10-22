@@ -1,0 +1,59 @@
+const names = ['Артём', 'Иван', 'Мария', 'Ольга', 'Дмитрий', 'Елена', 'Сергей', 'Анна'];
+
+const messages = [
+  'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+];
+
+const descriptions = [
+  'Красивый закат на море',
+  'Прогулка по парку',
+  'Мой любимый питомец',
+  'Вкусный ужин',
+  'Путешествие в горы',
+  'Встреча с друзьями',
+  'Утренний кофе',
+  'Загадочный лес'
+];
+
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+const getRandomItem = (array) => array[getRandomInt(0, array.length - 1)];
+
+const createComment = (id) => ({
+  id: id,
+  avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
+  message: getRandomItem(messages),
+  name: getRandomItem(names)
+});
+
+export const generatePhotos = () => {
+  const photos = [];
+  let commentIdCounter = 1;
+
+  for (let i = 1; i <= 25; i++) {
+    const commentsCount = getRandomInt(0, 30);
+    const comments = [];
+
+    for (let j = 0; j < commentsCount; j++) {
+      comments.push(createComment(commentIdCounter));
+      commentIdCounter++;
+    }
+
+    const photo = {
+      id: i,
+      url: `photos/${i}.jpg`,
+      description: getRandomItem(descriptions),
+      likes: getRandomInt(15, 200),
+      comments: comments
+    };
+
+    photos.push(photo);
+  }
+
+  return photos;
+};
